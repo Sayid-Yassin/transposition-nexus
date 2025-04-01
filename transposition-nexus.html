@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Transposition Nexus - Group 9</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f6f9;
+    }
+    .banner {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background-color: #ffffff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .banner img {
+      width: 80px;
+    }
+    .banner h1 {
+      margin: 0;
+      font-size: 28px;
+      color: #003366;
+    }
+    .description {
+      background-color: #ffffff;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    textarea {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #003366;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    h2 {
+      color: #003366;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Banner -->
+  <div class="banner">
+    <img src="image.png" alt="Transposition Nexus Logo">
+    <h1>Transposition Nexus - Group 9</h1>
+  </div>
+
+  <!-- Description -->
+  <div class="description">
+    <p><strong>This is the coursework project for Group 9 for module CC6004 Network and Cloud Security - Year 2024-25</strong></p>
+    <p><strong>Group Members:</strong></p>
+    <ul>
+      <li>ADEBOLA AKINYOOYE</li>
+      <li>SAYIDALI YASSIN MOHAMED</li>
+      <li>CALLUM HENRY GARY TONG</li>
+      <li>DAMILOLA AYANGA</li>
+      <li>JAKUB KACPER STASIK</li>
+      <li>NERINGA URBONAITE</li>
+      <li>SARAH MULEBA</li>
+    </ul>
+  </div>
+
+  <!-- Encrypt -->
+  <h2>Plain Text</h2>
+  <textarea id="inputText" placeholder="Enter text to encrypt..." rows="4"></textarea><br>
+  <button onclick="encrypt()">Encrypt</button><br>
+  <h3>Encrypted Text</h3>
+  <textarea id="encryptedText" placeholder="Encrypted output..." rows="4" readonly></textarea>
+
+  <!-- Decrypt -->
+  <h2>Decrypt Text</h2>
+  <textarea id="inputEncrypted" placeholder="Enter code to decrypt..." rows="4"></textarea><br>
+  <button onclick="decrypt()">Decrypt</button><br>
+  <textarea id="decryptedText" placeholder="Decrypted output..." rows="4" readonly></textarea>
+
+  <script>
+    const keyMap = {
+      'A': ['12L', 'A1X', 'Z9A'],
+      'B': ['28A', 'B3Y', 'X7B'],
+      'C': ['07C', 'C2Z', 'T8C'],
+      'D': ['56D', 'D4W', 'U9D'],
+      'E': ['34E', 'E5V', 'V1E'],
+      'F': ['62F', 'F6U', 'W2F'],
+      'G': ['91G', 'G7T', 'X3G'],
+      'H': ['10H', 'H8S', 'Y4H'],
+      'I': ['85I', 'I9R', 'Z5I'],
+      'J': ['47J', 'J0Q', 'A6J'],
+      'K': ['73K', 'K1P', 'B7K'],
+      'L': ['65L', 'L2O', 'C8L'],
+      'M': ['38M', 'M3N', 'D9M'],
+      'N': ['21N', 'N4M', 'E0N'],
+      'O': ['99O', 'O5L', 'F1O'],
+      'P': ['52P', 'P6K', 'G2P'],
+      'Q': ['44Q', 'Q7J', 'H3Q'],
+      'R': ['78R', 'R8I', 'I4R'],
+      'S': ['33S', 'S9H', 'J5S'],
+      'T': ['60T', 'T0G', 'K6T'],
+      'U': ['19U', 'U1F', 'L7U'],
+      'V': ['87V', 'V2E', 'M8V'],
+      'W': ['49W', 'W3D', 'N9W'],
+      'X': ['75X', 'X4C', 'O0X'],
+      'Y': ['66Y', 'Y5B', 'P1Y'],
+      'Z': ['30Z', 'Z6A', 'Q2Z'],
+      ' ': ['00Z', '0S0', 'S0S']
+    };
+
+    const reverseKeyMap = {};
+    for (let char in keyMap) {
+      keyMap[char].forEach(code => {
+        reverseKeyMap[code] = char;
+      });
+    }
+
+    function encrypt() {
+      const input = document.getElementById("inputText").value.toUpperCase();
+      let encrypted = "";
+      for (let char of input) {
+        if (keyMap[char]) {
+          const variants = keyMap[char];
+          const randIndex = Math.floor(Math.random() * variants.length);
+          encrypted += variants[randIndex];
+        } else {
+          encrypted += '?';
+        }
+      }
+      document.getElementById("encryptedText").value = encrypted;
+    }
+
+    function decrypt() {
+      const input = document.getElementById("inputEncrypted").value;
+      let decrypted = "";
+      for (let i = 0; i < input.length; i += 3) {
+        const code = input.substr(i, 3);
+        decrypted += reverseKeyMap[code] || '?';
+      }
+      document.getElementById("decryptedText").value = decrypted;
+    }
+  </script>
+
+</body>
+</html>
